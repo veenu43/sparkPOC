@@ -8,6 +8,7 @@ import org.apache.spark.rdd.MapPartitionsRDD;
 import scala.Tuple2;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class WordCounterPlural {
 
@@ -26,6 +27,9 @@ public class WordCounterPlural {
         JavaPairRDD<String,Integer> counts = countPrep.reduceByKey((x, y) -> (int) x + (int) y);
         JavaPairRDD<String,Integer> sortedCount = counts.sortByKey();
         sortedCount.saveAsTextFile("ReadmeCount");
+
+        Map<String, Long>  countByValue = tokenizedFileData.countByValue();
+
     }
 
     public static void main(String[] args) {
